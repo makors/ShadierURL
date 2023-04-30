@@ -18,12 +18,13 @@
             Try it out below 👇
         </h1>
         <div class="flex flex-col justify-center items-center pt-16">
-            <form action="/shortenURL" method="post" id="myForm" class="pb-8">
-                <div class="relative ring-2 rounded-lg ring-gradient-blue-pink">
-                    <input type="text" id="url" name="url" required class="font-semibold p-4 w-[50vw] rounded-lg bg-gray-900 text-gray-200 border-none text-2xl" placeholder="Your (Non-Shady) URL">
-                    <button type="submit" class="text-white absolute right-0 bottom-0 bg-[#102472] hover:bg-[#0a184d] font-medium rounded-r-lg text-xl px-4 h-full">Shadify 🪄</button>
+            <form action="/shortenURL" method="post" id="myForm" class="pb-2">
+                <div class="relative rounded-xl">
+                    <input type="text" id="url" name="url" required class="font-semibold p-4 w-[50vw] rounded-xl bg-gray-900 text-gray-200 border-none text-2xl" placeholder="Your (Non-Shady) URL">
+                    <button type="submit" class="text-white absolute right-0 bottom-0 bg-[#102472] hover:bg-[#0a184d] font-medium rounded-r-xl text-xl px-4 h-full">Shadify 🪄</button>
                 </div>  
             </form>
+            <span class="text-red-600 font-semibold text-xl" id="notvalid"></span>
             <div id="shortened" class="hidden flex flex-col justify-center items-center">
                 <span class="font-extrabold text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#334796] to-[#ba1c1c] text-center py-6">
                   Shady URL:
@@ -31,7 +32,7 @@
                 <br>
                 <button class="text-4xl font-bold text-white">
                   <code class="bg-gray-900 p-4 select-none rounded-md" onclick="copyURL()" id="ct">
-                    frick u
+                    
                   </code>
                   <h3 class="text text-gray-500 text-xl pt-5 italic" id="ctc">
                     Click to copy! 🔗

@@ -1,10 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import rateLimit from 'express-rate-limit'
+import rateLimit from 'express-rate-limit';
+import validator from 'validator';
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 250, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	max: 150, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
@@ -47,17 +48,39 @@ var shadyWords = [
   "ip_stealer",
   "xxxMovies",
   "Macro",
-  "click_me"
+  "click_me",
+  "spy",
+  "prize",
+  "bypass",
+  "Bitc0in-Min3r",
+  "viagra",
+  "crypt0s",
+  "g3olocation",
+  "cash_prize",
+  "installer",
+  "ip_hijack",
+  "keygen",
+  "CRACK_2023",
+  "k3ylog",
+  "torrent",
+  "execute",
+  "NFT_Stealer"
 ]
 const fe = [
   ".scr",
   ".exe",
   ".sh",
-  ".bat"
+  ".bat",
+  ".zip"
 ]
 const urls = {};
 
 app.post('/shortenURL', (req, res) => {
+  var { url } = req.body;
+  if (!(validator.isURL(url))) {
+    res.status(400).send("Invalid URL.");
+    return;
+  }
   let shady = "";
   let sha2 = shadyWords;
   for (let i = 0; i < rand(5,7); i++) {
@@ -65,7 +88,6 @@ app.post('/shortenURL', (req, res) => {
     shady += listItem + '-';
     sha2 = arrayRemove(sha2, listItem);
   }
-  var { url } = req.body;
   if (!(url.startsWith('http'))) {
     url = 'http://' + url;
   }
