@@ -2,6 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import validator from 'validator';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { readFileSync, write, writeFile } from 'node:fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
@@ -74,7 +80,8 @@ const fe = [
   ".bat",
   ".zip"
 ]
-const urls = {};
+
+const urls = JSON.parse(readFileSync('./domains.json'));
 
 app.post('/shortenURL', (req, res) => {
   var { url } = req.body;
@@ -94,6 +101,10 @@ app.post('/shortenURL', (req, res) => {
   }
   const id = shady.slice(0, -1) + fe.randoml();
   urls[id] = url;
+  // write url to file
+  writeFile('./domains.json', JSON.stringify(urls, null, 2), err => {
+    if (err) {console.error(err);}
+  })
   res.json({ id });
 });
 
@@ -103,7 +114,7 @@ app.get('/:id', (req, res) => {
   if (url) {
     res.redirect(url);
   } else {
-    res.status(404).send('Not found');
+    res.status(404).sendFile(__dirname + '/public/404.html');
   }
 });
 
