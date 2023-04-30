@@ -64,7 +64,8 @@ var shadyWords = [
   "k3ylog",
   "torrent",
   "execute",
-  "NFT_Stealer"
+  "NFT_Stealer",
+  "t0k3n_st3al3r"
 ]
 const fe = [
   ".scr",
